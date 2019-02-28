@@ -1,7 +1,7 @@
 # new-correlation-transform
 A New Parametrization of Correlation Matrices
 
-Implementation of the new transformation for correlation matrices introduced in the paper "A New Parametrization of Correlation Matrices" by Archakov and Hansen (2018). The program consists of two functions. The first function, **direct_mapping_mat**, performs a direct tranform of a non-singular correlation matrix into an unconstrained real vector. The second function, **inverse_mapping_vec**, provides an inverse mapping transforming a real vector of proper dimensionality to a unique correlation matrix that corresponds to a given vector.
+Implementation of the new transformation for correlation matrices introduced in the paper "A New Parametrization of Correlation Matrices" by Archakov and Hansen (2018). The program consists of two functions. The first function, **direct_mapping_mat**, performs a direct tranform of a non-singular correlation matrix into an unconstrained real vector. The second function, **inverse_mapping_vec**, provides an inverse mapping that transforms a real vector of proper dimensionality to a unique correlation matrix that corresponds to a given vector.
 
 Function **direct_mapping_mat** takes a correlation matrix (square, positive definite and having ones on the main diagonal) in a format of 2D numpy array as an argument. It returns a real vector of dimension *n(n-1)/2* (where *n* is a size of input matrix) in a format of 1D numpy array.
 
