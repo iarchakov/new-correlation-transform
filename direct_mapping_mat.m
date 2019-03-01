@@ -24,5 +24,5 @@ function gamma = direct_mapping_mat(C)
         gamma = A(logical(tril(ones(size(C,1)),-1)));
         
     else
-        fprintf('Error : input is of wrong format');
+        fprintf('Error: input is of wrong format');
     end
