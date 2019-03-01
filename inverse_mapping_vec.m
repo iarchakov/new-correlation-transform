@@ -8,16 +8,29 @@
 
 
 
-function [C,iter_number] = inverse_mapping_vec(gamma,tol_value)
+function [C,iter_number] = inverse_mapping_vec(gamma, varargin)
     
     C = [];
     iter_number = -1;
     
-    % Check if input vector is of suitable dimensions and 
-    % tolerance value belongs to a proper interval
+    % Check if tolerance value belongs to a proper interval
+    % and change it to the default value otherwise
+    tol_value = 1e-8;   % default tolerance value
+    if length(varargin) > 1
+        fprintf('Error: too many input arguments');
+        return;
+    end
+    if ~isempty(varargin)
+        if (varargin{1} > 0 && varargin{1} <= 1e-4)
+            tol_value = varargin{1};
+        else 
+            fprintf('Warning: tolerance value has been changed to default');
+        end
+    end
+    
+    % Check if input vector is of suitable dimensions
     n = 0.5*(1+sqrt(1+8*length(gamma)));
-    if isvector(gamma) && (n == floor(n))... 
-        && (tol_value > 0 && tol_value < 1)
+    if isvector(gamma) && (n == floor(n)) && (n > 1)
        
         % Place elements from gamma into off-diagonal parts 
         % and put zeros on the main diagonal of nxn symmetric matrix A
@@ -44,5 +57,5 @@ function [C,iter_number] = inverse_mapping_vec(gamma,tol_value)
         C(diag_ind) = ones(n,1);
 
     else
-        fprintf('Error : input is of wrong format');
+        fprintf('Error: input is of wrong format');
     end
