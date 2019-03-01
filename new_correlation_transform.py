@@ -39,22 +39,27 @@ def direct_mapping_mat(C):
 
 ### Inverse tranformation (from a real vector "gamma" of proper dimensionality
 ### to a unique corresponding correlation matrix "C")
-def inverse_mapping_vec(gamma,tol_value):
+def inverse_mapping_vec(gamma, tol_value=1e-8):
     C = []
     iter_number = -1
 
     try:
         # Check if input is of proper format: gamma is of suitable length
-        # and tolerance value belongs to a proper interval
         if not isinstance(gamma, (np.ndarray, list)):
             raise ValueError
         if isinstance(gamma, np.ndarray):
             if gamma.ndim != 1:
                 raise ValueError
         n = 0.5 * (1 + np.sqrt(1 + 8 * len(gamma)))
-        if not all([n.is_integer(), n > 1, 0 < tol_value < 1]):
+        if not all([n.is_integer(), n > 1]):
             raise ValueError
-
+            
+        # Check if tolerance value belongs to a proper interval
+        # and change it to the default value otherwise
+        if not (0 < tol_value <= 1e-4):
+            tol_value = 1e-8
+            print('Warning: tolerance value has been changed to default')
+            
         # Place elements from gamma into off-diagonal parts
         # and put zeros on the main diagonal of [n x n] symmetric matrix A
         n = int(n)
